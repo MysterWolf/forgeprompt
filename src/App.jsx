@@ -167,19 +167,10 @@ function ProductCard({ p, index }) {
           marginTop: "auto",
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: "flex-end",
           paddingTop: 16,
           borderTop: "1px solid #F3F4F6",
         }}>
-          <div style={{
-            fontSize: p.available ? 20 : 14,
-            fontWeight: p.available ? 700 : 400,
-            color: p.available ? "#1A1A1A" : "#9CA3AF",
-            fontFamily: "var(--fp-sans)",
-            letterSpacing: p.available ? "-0.02em" : "0",
-          }}>
-            {p.price}
-          </div>
           {p.available ? (
             <a
               href={p.gumroad}
@@ -339,13 +330,13 @@ export default function App() {
           </div>
           <div>
             <div style={{ fontWeight: 700, fontSize: 15, color: "#1A1A1A", letterSpacing: "-0.01em", lineHeight: 1 }}>
-              ForgePrompt
+              PromptSmith
             </div>
             <div style={{
               fontSize: 9, color: "#6B7280", letterSpacing: "0.08em",
               textTransform: "uppercase", fontFamily: "var(--fp-mono)", marginTop: 2,
             }}>
-              .studio
+              .store
             </div>
           </div>
         </div>
@@ -487,7 +478,7 @@ export default function App() {
         <div className="fp-sec">
           <div className="fp-about-cols" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start" }}>
             <Reveal>
-              <div className="fp-label">About ForgePrompt</div>
+              <div className="fp-label">About PromptSmith</div>
               <h2 style={{ fontSize: 36, fontWeight: 700, letterSpacing: "-0.02em", color: "#1A1A1A", marginBottom: 24, lineHeight: 1.15 }}>
                 Built by consultants.<br />
                 Tested on real work.
@@ -510,7 +501,7 @@ export default function App() {
                   ["Platforms", "M365 Copilot, Google Gemini (more coming)"],
                   ["Format", "PDF download — no account required"],
                   ["Updates", "Playbooks updated as platform behavior changes"],
-                  ["Support", "Questions? hello@forgeprompt.studio"],
+                  ["Support", "Questions? hello@promptsmith.store"],
                 ].map(([label, val], i) => (
                   <div
                     key={label}
@@ -577,7 +568,7 @@ export default function App() {
               </svg>
             </div>
             <span style={{ fontWeight: 700, fontSize: 14, color: "#1A1A1A", letterSpacing: "-0.01em" }}>
-              ForgePrompt.studio
+              PromptSmith
             </span>
             <span style={{ fontSize: 12, color: "#9CA3AF" }}>
               · A{" "}
