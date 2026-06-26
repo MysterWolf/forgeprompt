@@ -8,9 +8,10 @@ Digital prompt playbook store for professionals. B2B product site selling role-s
 Sister brand to ProcessMind LLC (mysterwolf.github.io/processmind/). Same owner, different product line.
 
 ## Current Status
-- **Live:** promptsmith.store
+- **Live:** https://www.promptsmith.store (HTTPS enforced)
 - **Deployed from:** gh-pages branch
-- **Custom domain:** promptsmith.store (CNAME in public/)
+- **Custom domain:** www.promptsmith.store (CNAME in public/)
+- **Apex redirect:** promptsmith.store → www.promptsmith.store (via GitHub Pages)
 
 ## Tech Stack
 | Layer | Choice | Notes |
@@ -39,7 +40,7 @@ To retheme: update only the `:root` block inside App.jsx. Do not hardcode colors
 | src/index.css | Minimal reset only — do not add shared styles here |
 | src/main.jsx | Entry point — mounts App |
 | vite.config.js | base: '/' (custom domain configured) |
-| public/CNAME | Custom domain: promptsmith.store |
+| public/CNAME | Custom domain: www.promptsmith.store |
 | public/favicon.svg | Blue square icon with lines |
 | index.html | Title, meta description, favicon ref |
 
@@ -77,7 +78,7 @@ To add a platform: add a color entry to `PlatformBadge`'s `colors` object.
 
 ## Invariants — Never Change These
 - **vite.config.js base must stay '/'** — custom domain is configured via CNAME
-- **public/CNAME must stay `promptsmith.store`** — do not remove or alter
+- **public/CNAME must stay `www.promptsmith.store`** — do not change back to apex; apex cert provisioning was permanently stalled on GitHub Pages; www CNAME path works correctly
 - **CSS variables only in :root block in App.jsx** — never hardcode colors
 - **Products array is the single source of truth** — never hard-code product details in JSX
 - **Available products link to Gumroad** — do not add an internal checkout flow
@@ -100,4 +101,4 @@ npm run deploy
 Always run from ~/forgeprompt. The gh-pages branch is managed automatically.
 
 ## Claude Code Session Starter
-"I'm working on the PromptSmith product site at github.com/MysterWolf/forgeprompt. Pull the repo and read CLAUDE.md. This is a single-page React/Vite site deployed to GitHub Pages at promptsmith.store. CSS variables only in :root inside App.jsx. All styles in the App.jsx style block — do not move to index.css. Products data in the products array at the top of App.jsx. vite.config.js base is '/'. Custom domain set via public/CNAME. No prices on product cards. Confirm before making any changes."
+"I'm working on the PromptSmith product site at github.com/MysterWolf/forgeprompt. Pull the repo and read CLAUDE.md. This is a single-page React/Vite site deployed to GitHub Pages at www.promptsmith.store (HTTPS enforced). CSS variables only in :root inside App.jsx. All styles in the App.jsx style block — do not move to index.css. Products data in the products array at the top of App.jsx. vite.config.js base is '/'. Custom domain is www.promptsmith.store set via public/CNAME — do not change to apex domain. No prices on product cards. Confirm before making any changes."
