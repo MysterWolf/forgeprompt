@@ -1,11 +1,11 @@
 # PromptSmith — Claude Context
 **Last updated:** June 2026
-**Version:** 1.1.0
+**Version:** 1.2.0
 
 ## What This Is
-Digital prompt playbook store for professionals. B2B product site selling role-specific, validated AI prompt libraries. Built in React/Vite, deployed to GitHub Pages with custom domain promptsmith.store.
+Digital prompt playbook store for professionals. Sells role-specific playbooks, starter packs, and everyday AI guides. Built in React/Vite, deployed to GitHub Pages with custom domain www.promptsmith.store.
 
-Sister brand to ProcessMind LLC (mysterwolf.github.io/processmind/). Same owner, different product line.
+Sister brand to ProcessMind LLC (www.theprocessmind.com). Same owner, different product line.
 
 ## Current Status
 - **Live:** https://www.promptsmith.store (HTTPS enforced)
@@ -23,8 +23,9 @@ Sister brand to ProcessMind LLC (mysterwolf.github.io/processmind/). Same owner,
 
 ## Brand Palette (CSS Variables)
 ```css
---fp-accent:      #2D4A8A   /* deep professional blue */
---fp-accent-dark: #243D73   /* hover state */
+--fp-accent:      #1B3A5C   /* PromptSmith navy */
+--fp-accent-dark: #142D47   /* hover state */
+--fp-gold:        #C9A84C   /* brand gold — used for Start Here divider */
 --fp-bg:          #FAFAFA   /* page background */
 --fp-white:       #FFFFFF   /* card / section backgrounds */
 --fp-text:        #1A1A1A   /* primary text */
@@ -47,32 +48,60 @@ To retheme: update only the `:root` block inside App.jsx. Do not hardcode colors
 ## Site Structure (src/App.jsx)
 1. **Nav** — Fixed, scrolled blur effect, logo mark + links + CTA button
 2. **Hero** — Grid bg pattern, headline, subhead, dual CTAs, trust bar
-3. **Products** — 2×2 card grid, platform badges, Gumroad links for available items
+3. **Products** — Three grouped sections (Start Here / Role-Specific / Beyond Work), platform badges, Gumroad links
 4. **How it works** — 3-step process (Download → Open tool → Paste and go)
 5. **About** — Two-column: narrative left, spec table right
-6. **CTA banner** — Blue background strip with Browse Playbooks button
+6. **CTA banner** — Navy background strip with Browse Playbooks button
 7. **Footer** — Logo, nav links, ProcessMind attribution, copyright
 
+## Components (in App.jsx)
+- **`PlatformBadge`** — renders platform chip; colors keyed by platform string
+- **`ProductCard`** — renders one product; handles 3 button states (see below)
+- **`CatalogDivider`** — section divider with label + horizontal rule; `gold` prop for Start Here
+- **`Reveal`** — IntersectionObserver fade-up wrapper
+
 ## Products Data (in App.jsx)
-| Product | Platform | Status | Gumroad URL |
-|---------|----------|--------|-------------|
-| Field PM Copilot Playbook | M365 | Live | forgeprompt.gumroad.com/l/field-pm-copilot |
-| Data Quality Copilot Playbook | M365 | Live | forgeprompt.gumroad.com/l/data-quality-copilot |
-| Social Worker's Gemini Playbook | Gemini | Coming soon | — |
-| Admin Assistant Copilot Playbook | M365 | Coming soon | — |
+Products array at top of file. Each entry:
 
-Product cards show: name, one-line description, platform badge, and "Get it now" button. **No price on cards** — price lives on Gumroad.
+| Field | Type | Notes |
+|-------|------|-------|
+| `id` | string | kebab-case, unique |
+| `title` | string | Display name |
+| `subtitle` | string \| omit | Edition label shown in mono below title |
+| `desc` | string | One or two sentences |
+| `platform` | `"M365"` \| `"Gemini"` \| `"Any AI"` | Controls badge color |
+| `price` | string | Data only — not shown on card; lives on Gumroad |
+| `category` | `"starter"` \| `"role"` \| `"everyday"` | Controls which section it appears in |
+| `available` | boolean | false = "Notify me" state |
+| `gumroad` | string \| null | null = "Available soon" state |
 
-To add a product: add an entry to the `products` array at the top of App.jsx. Fields: `id`, `title`, `desc`, `platform` (`"M365"` or `"Gemini"`), `price`, `available` (boolean), `gumroad` (URL or null).
+### Button states on ProductCard
+| `available` | `gumroad` | Button shown |
+|---|---|---|
+| `true` | URL string | "Get it now" → links to Gumroad |
+| `true` | `null` | "Available soon" (muted, no link) |
+| `false` | any | "Notify me" (muted, no link) |
 
-To add a platform: add a color entry to `PlatformBadge`'s `colors` object.
+### Current catalog
+| Product | Category | Platform | Price | Gumroad |
+|---------|----------|----------|-------|---------|
+| Your First 30 Prompts (Non-Technical) | starter | Any AI | $9 | — pending |
+| Your First 30 Prompts + 25 More (Semi-Technical) | starter | Any AI | $14 | — pending |
+| Field PM Copilot Playbook | role | M365 | $29 | forgeprompt.gumroad.com/l/field-pm-copilot |
+| Data Quality Copilot Playbook | role | M365 | $24 | forgeprompt.gumroad.com/l/data-quality-copilot |
+| People Manager Prompt Pack | role | M365 | $29 | — pending |
+| Social Worker's Gemini Playbook | role | Gemini | — | coming soon |
+| Admin Assistant Copilot Playbook | role | M365 | — | coming soon |
+| AI for Everyday Life | everyday | Any AI | $9 | — pending |
+
+To add a product: add an entry to the `products` array. To add a platform: add a color entry to `PlatformBadge`'s `colors` object.
 
 ## Architecture Decisions
 - Single-page, no router — all sections are scroll-anchored via `id`
 - All styles live inside App.jsx `<style>` block — do not move to index.css
 - No analytics, no backend, no CMS
-- Subtle grid background on hero via CSS `backgroundImage`
-- Reveal animations use IntersectionObserver (same pattern as ProcessMind)
+- Product sections grouped by `category` — rendered via filtered arrays (`starters`, `roleItems`, `everyday`) derived at the top of the App component
+- Reveal animations use IntersectionObserver
 - Product cards link directly to Gumroad — no cart, no account required
 - Contact email: hello@promptsmith.store
 
@@ -82,16 +111,16 @@ To add a platform: add a color entry to `PlatformBadge`'s `colors` object.
 - **CSS variables only in :root block in App.jsx** — never hardcode colors
 - **Products array is the single source of truth** — never hard-code product details in JSX
 - **Available products link to Gumroad** — do not add an internal checkout flow
+- **No price on product cards** — price lives on Gumroad only
 - **No dark mode** — this is a light-first professional product site
 - **Keep the ProcessMind footer attribution** — PromptSmith is explicitly a ProcessMind product
-- **No price on product cards** — price lives on Gumroad only
+- **category field is required on every product** — drives section grouping
 
 ## Pending Work
-1. Update Gumroad account/URLs to promptsmith branding (replace forgeprompt.gumroad.com URLs)
-2. Update contact/support email when domain email is set up
-3. Add Social Worker's Gemini Playbook when ready
-4. Add Admin Assistant Copilot Playbook when ready
-5. Add email capture for "Notify me" on coming-soon products
+1. Add real Gumroad URLs for: Your First 30 Prompts, Your First 30 Prompts + 25 More, People Manager Prompt Pack, AI for Everyday Life (update `gumroad: null` → real URL in products array)
+2. Update Gumroad account/URLs from forgeprompt.gumroad.com to promptsmith branding
+3. Update contact/support email when domain email is set up
+4. Add email capture for "Notify me" on coming-soon products
 
 ## Deployment
 ```bash
@@ -101,4 +130,4 @@ npm run deploy
 Always run from ~/forgeprompt. The gh-pages branch is managed automatically.
 
 ## Claude Code Session Starter
-"I'm working on the PromptSmith product site at github.com/MysterWolf/forgeprompt. Pull the repo and read CLAUDE.md. This is a single-page React/Vite site deployed to GitHub Pages at www.promptsmith.store (HTTPS enforced). CSS variables only in :root inside App.jsx. All styles in the App.jsx style block — do not move to index.css. Products data in the products array at the top of App.jsx. vite.config.js base is '/'. Custom domain is www.promptsmith.store set via public/CNAME — do not change to apex domain. No prices on product cards. Confirm before making any changes."
+"I'm working on the PromptSmith product site at github.com/MysterWolf/forgeprompt. Pull the repo and read CLAUDE.md. This is a single-page React/Vite site deployed to GitHub Pages at www.promptsmith.store (HTTPS enforced). CSS variables only in :root inside App.jsx. All styles in the App.jsx style block — do not move to index.css. Products data in the products array at the top of App.jsx — each product needs id, title, desc, platform, price, category, available, gumroad fields. vite.config.js base is '/'. Custom domain is www.promptsmith.store set via public/CNAME — do not change to apex domain. No prices on product cards. Confirm before making any changes."
