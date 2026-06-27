@@ -1,12 +1,37 @@
 import { useState, useEffect, useRef } from "react";
 
 const products = [
+  // Starter / gateway
+  {
+    id: "first-30-prompts",
+    title: "Your First 30 Prompts",
+    subtitle: "Non-Technical Edition",
+    desc: "30 prompts across 6 categories: writing, understanding documents, planning, research, explaining things to others, and everyday decisions. Works with Claude, ChatGPT, or Gemini.",
+    platform: "Any AI",
+    price: "$9",
+    category: "starter",
+    available: true,
+    gumroad: null,
+  },
+  {
+    id: "first-30-plus-25",
+    title: "Your First 30 Prompts + 25 More",
+    subtitle: "Semi-Technical Edition",
+    desc: "Everything in the Non-Technical Edition, plus 25 prompts for reading code, debugging logic, technical writing, documentation, and evaluating tools and systems.",
+    platform: "Any AI",
+    price: "$14",
+    category: "starter",
+    available: true,
+    gumroad: null,
+  },
+  // Role-specific
   {
     id: "field-pm-copilot",
     title: "Field PM Copilot Playbook",
     desc: "For field project managers using M365 Copilot",
     platform: "M365",
     price: "$29",
+    category: "role",
     available: true,
     gumroad: "https://forgeprompt.gumroad.com/l/field-pm-copilot",
   },
@@ -15,9 +40,20 @@ const products = [
     title: "Data Quality Copilot Playbook",
     desc: "For Finance Operations and CDM professionals",
     platform: "M365",
-    price: "$19",
+    price: "$24",
+    category: "role",
     available: true,
     gumroad: "https://forgeprompt.gumroad.com/l/data-quality-copilot",
+  },
+  {
+    id: "people-manager-pack",
+    title: "People Manager Prompt Pack",
+    desc: "For people managers and team leads using M365 Copilot",
+    platform: "M365",
+    price: "$29",
+    category: "role",
+    available: true,
+    gumroad: null,
   },
   {
     id: "social-worker-gemini",
@@ -25,6 +61,7 @@ const products = [
     desc: "For social services professionals using Google Gemini",
     platform: "Gemini",
     price: "Coming soon",
+    category: "role",
     available: false,
     gumroad: null,
   },
@@ -34,7 +71,20 @@ const products = [
     desc: "For executive and administrative assistants using M365 Copilot",
     platform: "M365",
     price: "Coming soon",
+    category: "role",
     available: false,
+    gumroad: null,
+  },
+  // Everyday life
+  {
+    id: "ai-everyday-life",
+    title: "AI for Everyday Life",
+    subtitle: "35 Prompts for the World Outside Work",
+    desc: "35 prompts across 7 categories: travel, cooking, shopping, news, health and fitness, money, and learning anything new. Works with any AI.",
+    platform: "Any AI",
+    price: "$9",
+    category: "everyday",
+    available: true,
     gumroad: null,
   },
 ];
@@ -93,8 +143,9 @@ function Reveal({ children, delay = 0, y = 20 }) {
 
 function PlatformBadge({ platform }) {
   const colors = {
-    M365: { bg: "#EEF2FF", text: "#2D4A8A", border: "#C7D2FE" },
+    M365:   { bg: "#E8EEF5", text: "#1B3A5C", border: "#B8C9DC" },
     Gemini: { bg: "#F0FDF4", text: "#15803D", border: "#BBF7D0" },
+    "Any AI": { bg: "#F5F3FF", text: "#4C3D9E", border: "#DDD6FE" },
   };
   const c = colors[platform] || colors.M365;
   return (
@@ -133,7 +184,7 @@ function ProductCard({ p, index }) {
         style={{
           padding: "28px 28px 24px",
           background: "#fff",
-          border: `1px solid ${hov && p.available ? "#2D4A8A44" : "#E5E7EB"}`,
+          border: `1px solid ${hov && p.available ? "#1B3A5C44" : "#E5E7EB"}`,
           borderRadius: 8,
           display: "flex",
           flexDirection: "column",
@@ -141,7 +192,7 @@ function ProductCard({ p, index }) {
           height: "100%",
           transition: "border-color 0.2s, box-shadow 0.2s",
           boxShadow: hov && p.available
-            ? "0 4px 24px rgba(45,74,138,0.08)"
+            ? "0 4px 24px rgba(27,58,92,0.08)"
             : "0 1px 3px rgba(0,0,0,0.04)",
         }}
       >
@@ -154,11 +205,16 @@ function ProductCard({ p, index }) {
             fontWeight: 600,
             color: "#1A1A1A",
             lineHeight: 1.3,
-            marginBottom: 8,
+            marginBottom: p.subtitle ? 4 : 8,
             fontFamily: "var(--fp-sans)",
           }}>
             {p.title}
           </div>
+          {p.subtitle && (
+            <div style={{ fontSize: 12, color: "#9CA3AF", fontFamily: "var(--fp-mono)", letterSpacing: "0.03em", marginBottom: 8 }}>
+              {p.subtitle}
+            </div>
+          )}
           <div style={{ fontSize: 14, color: "#6B7280", lineHeight: 1.6 }}>
             {p.desc}
           </div>
@@ -171,7 +227,7 @@ function ProductCard({ p, index }) {
           paddingTop: 16,
           borderTop: "1px solid #F3F4F6",
         }}>
-          {p.available ? (
+          {p.available && p.gumroad ? (
             <a
               href={p.gumroad}
               target="_blank"
@@ -179,7 +235,7 @@ function ProductCard({ p, index }) {
               style={{
                 display: "inline-block",
                 padding: "9px 20px",
-                background: "#2D4A8A",
+                background: "#1B3A5C",
                 color: "#fff",
                 borderRadius: 6,
                 fontSize: 13,
@@ -189,16 +245,30 @@ function ProductCard({ p, index }) {
                 transition: "background 0.15s, transform 0.15s",
               }}
               onMouseEnter={e => {
-                e.currentTarget.style.background = "#243D73";
+                e.currentTarget.style.background = "#142D47";
                 e.currentTarget.style.transform = "translateY(-1px)";
               }}
               onMouseLeave={e => {
-                e.currentTarget.style.background = "#2D4A8A";
+                e.currentTarget.style.background = "#1B3A5C";
                 e.currentTarget.style.transform = "none";
               }}
             >
               Get it now
             </a>
+          ) : p.available ? (
+            <span style={{
+              display: "inline-block",
+              padding: "9px 16px",
+              background: "#F9FAFB",
+              color: "#9CA3AF",
+              borderRadius: 6,
+              fontSize: 12,
+              fontFamily: "var(--fp-mono)",
+              letterSpacing: "0.04em",
+              border: "1px solid #E5E7EB",
+            }}>
+              Available soon
+            </span>
           ) : (
             <span style={{
               display: "inline-block",
@@ -220,6 +290,30 @@ function ProductCard({ p, index }) {
   );
 }
 
+function CatalogDivider({ label, note, gold = false }) {
+  return (
+    <Reveal>
+      <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 20 }}>
+        <span style={{
+          fontSize: 10,
+          fontFamily: "var(--fp-mono)",
+          letterSpacing: "0.12em",
+          textTransform: "uppercase",
+          fontWeight: 600,
+          color: gold ? "#C9A84C" : "#1B3A5C",
+          flexShrink: 0,
+        }}>
+          {label}
+        </span>
+        <div style={{ flex: 1, height: 1, background: gold ? "#F0EAD6" : "#E5E7EB" }} />
+        {note && (
+          <span style={{ fontSize: 12, color: "#9CA3AF", flexShrink: 0 }}>{note}</span>
+        )}
+      </div>
+    </Reveal>
+  );
+}
+
 export default function App() {
   const [scrolled, setScrolled] = useState(false);
 
@@ -233,6 +327,10 @@ export default function App() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const starters  = products.filter(p => p.category === "starter");
+  const roleItems = products.filter(p => p.category === "role");
+  const everyday  = products.filter(p => p.category === "everyday");
+
   return (
     <div style={{ background: "#FAFAFA", minHeight: "100vh", color: "#1A1A1A", fontFamily: "var(--fp-sans)" }}>
       <style>{`
@@ -241,8 +339,9 @@ export default function App() {
         :root {
           --fp-sans:        'Inter', system-ui, sans-serif;
           --fp-mono:        'JetBrains Mono', ui-monospace, monospace;
-          --fp-accent:      #2D4A8A;
-          --fp-accent-dark: #243D73;
+          --fp-accent:      #1B3A5C;
+          --fp-accent-dark: #142D47;
+          --fp-gold:        #C9A84C;
           --fp-bg:          #FAFAFA;
           --fp-white:       #FFFFFF;
           --fp-text:        #1A1A1A;
@@ -283,7 +382,7 @@ export default function App() {
           text-decoration: none; letter-spacing: 0.01em;
           transition: background 0.15s, transform 0.15s;
         }
-        .fp-cta-outline:hover { background: #EEF2FF; transform: translateY(-1px); }
+        .fp-cta-outline:hover { background: #E8EEF5; transform: translateY(-1px); }
 
         .fp-label {
           font-size: 11px; font-family: var(--fp-mono); letter-spacing: 0.12em;
@@ -321,7 +420,7 @@ export default function App() {
       }}>
         <div onClick={() => go("home")} style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 10 }}>
           <div style={{
-            width: 32, height: 32, borderRadius: 6, background: "#2D4A8A",
+            width: 32, height: 32, borderRadius: 6, background: "#1B3A5C",
             display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
           }}>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -366,7 +465,7 @@ export default function App() {
         <div style={{
           position: "absolute", top: "40%", right: "8%",
           width: 420, height: 420, borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(45,74,138,0.07) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(27,58,92,0.07) 0%, transparent 70%)",
           zIndex: 0,
         }} />
 
@@ -403,7 +502,7 @@ export default function App() {
           <div style={{ opacity: 0, animation: "fpFade 0.8s ease 0.7s forwards", marginTop: 64, display: "flex", gap: 36, alignItems: "center", flexWrap: "wrap" }}>
             {["Validated by real professionals", "Works on day one", "No AI knowledge required"].map(text => (
               <div key={text} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "#6B7280" }}>
-                <span style={{ color: "#2D4A8A", fontWeight: 700, fontSize: 15 }}>✓</span>
+                <span style={{ color: "#1B3A5C", fontWeight: 700, fontSize: 15 }}>✓</span>
                 {text}
               </div>
             ))}
@@ -418,16 +517,30 @@ export default function App() {
             <div style={{ marginBottom: 52 }}>
               <div className="fp-label">Playbook Library</div>
               <h2 style={{ fontSize: 36, fontWeight: 700, letterSpacing: "-0.02em", color: "#1A1A1A", marginBottom: 14, lineHeight: 1.15 }}>
-                Pick your role. Paste and go.
+                Find your playbook.
               </h2>
-              <p style={{ fontSize: 16, color: "#6B7280", maxWidth: 480, lineHeight: 1.7 }}>
-                Each playbook is built for a specific professional role and tested against real workflows before it ships.
+              <p style={{ fontSize: 16, color: "#6B7280", maxWidth: 520, lineHeight: 1.7 }}>
+                Role-specific prompt libraries, starter packs, and everyday guides — all tested against real workflows.
               </p>
             </div>
           </Reveal>
 
+          {/* Starter packs */}
+          <CatalogDivider label="Start Here" note="New to AI? These are the fastest way in." gold />
+          <div className="fp-products-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 20, marginBottom: 52 }}>
+            {starters.map((p, i) => <ProductCard key={p.id} p={p} index={i} />)}
+          </div>
+
+          {/* Role-specific */}
+          <CatalogDivider label="Role-Specific Playbooks" />
+          <div className="fp-products-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 20, marginBottom: 52 }}>
+            {roleItems.map((p, i) => <ProductCard key={p.id} p={p} index={i} />)}
+          </div>
+
+          {/* Everyday life */}
+          <CatalogDivider label="Beyond Work" />
           <div className="fp-products-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 20 }}>
-            {products.map((p, i) => <ProductCard key={p.id} p={p} index={i} />)}
+            {everyday.map((p, i) => <ProductCard key={p.id} p={p} index={i} />)}
           </div>
         </div>
       </section>
@@ -451,7 +564,7 @@ export default function App() {
             {steps.map((s, i) => (
               <Reveal key={s.n} delay={i * 0.1}>
                 <div style={{ background: "#fff", padding: "40px 32px", height: "100%" }}>
-                  <div style={{ fontSize: 11, fontFamily: "var(--fp-mono)", color: "#2D4A8A", letterSpacing: "0.1em", marginBottom: 20, fontWeight: 500 }}>
+                  <div style={{ fontSize: 11, fontFamily: "var(--fp-mono)", color: "#1B3A5C", letterSpacing: "0.1em", marginBottom: 20, fontWeight: 500 }}>
                     {s.n}
                   </div>
                   <div style={{ fontSize: 20, fontWeight: 600, color: "#1A1A1A", letterSpacing: "-0.01em", marginBottom: 12 }}>
@@ -489,7 +602,7 @@ export default function App() {
               <p style={{ fontSize: 15, color: "#6B7280", lineHeight: 1.8, marginBottom: 32 }}>
                 We don&rsquo;t publish prompts that sound good in a demo. We test them in the tools your team already uses — M365 Copilot, Google Gemini — and refine them until they produce professional-grade output on the first try.
               </p>
-              <a href="https://mysterwolf.github.io/processmind/" target="_blank" rel="noopener noreferrer" className="fp-cta-outline">
+              <a href="https://www.theprocessmind.com" target="_blank" rel="noopener noreferrer" className="fp-cta-outline">
                 About ProcessMind
               </a>
             </Reveal>
@@ -498,7 +611,7 @@ export default function App() {
               <div style={{ background: "#FAFAFA", border: "1px solid #E5E7EB", borderRadius: 8, overflow: "hidden" }}>
                 {[
                   ["Validation", "Every prompt tested against real professional workflows"],
-                  ["Platforms", "M365 Copilot, Google Gemini (more coming)"],
+                  ["Platforms", "M365 Copilot, Google Gemini, Claude, ChatGPT (more coming)"],
                   ["Format", "PDF download — no account required"],
                   ["Updates", "Playbooks updated as platform behavior changes"],
                   ["Support", "Questions? hello@promptsmith.store"],
@@ -525,7 +638,7 @@ export default function App() {
       </section>
 
       {/* CTA banner */}
-      <section style={{ padding: "80px 0", background: "#2D4A8A", borderTop: "1px solid #243D73" }}>
+      <section style={{ padding: "80px 0", background: "#1B3A5C", borderTop: "1px solid #142D47" }}>
         <div className="fp-sec">
           <Reveal>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 40 }}>
@@ -539,7 +652,7 @@ export default function App() {
               </div>
               <button
                 style={{
-                  padding: "14px 32px", background: "#fff", color: "#2D4A8A",
+                  padding: "14px 32px", background: "#fff", color: "#1B3A5C",
                   border: "none", borderRadius: 6, cursor: "pointer",
                   fontSize: 14, fontWeight: 600, fontFamily: "var(--fp-sans)",
                   letterSpacing: "0.01em", flexShrink: 0, transition: "transform 0.15s",
@@ -562,7 +675,7 @@ export default function App() {
           style={{ maxWidth: 1080, margin: "0 auto", padding: "28px 48px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
-            <div style={{ width: 24, height: 24, borderRadius: 4, background: "#2D4A8A", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+            <div style={{ width: 24, height: 24, borderRadius: 4, background: "#1B3A5C", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
               <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
                 <path d="M3 4h10M3 8h7M3 12h4" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
@@ -572,7 +685,7 @@ export default function App() {
             </span>
             <span style={{ fontSize: 12, color: "#9CA3AF" }}>
               · A{" "}
-              <a href="https://mysterwolf.github.io/processmind/" target="_blank" rel="noopener noreferrer" style={{ color: "#2D4A8A", textDecoration: "none" }}>
+              <a href="https://www.theprocessmind.com" target="_blank" rel="noopener noreferrer" style={{ color: "#1B3A5C", textDecoration: "none" }}>
                 ProcessMind
               </a>
               {" "}product
