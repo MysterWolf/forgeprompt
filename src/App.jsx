@@ -33,7 +33,7 @@ const products = [
     price: "$29",
     category: "role",
     available: true,
-    gumroad: "https://forgeprompt.gumroad.com/l/field-pm-copilot",
+    gumroad: "https://mysterwolf.gumroad.com/l/PMAIPlaybook",
   },
   {
     id: "data-quality-copilot",
