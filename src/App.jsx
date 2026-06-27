@@ -53,7 +53,7 @@ const products = [
     price: "$29",
     category: "role",
     available: true,
-    gumroad: null,
+    gumroad: "https://mysterwolf.gumroad.com/l/peoplepack",
   },
   {
     id: "social-worker-gemini",
