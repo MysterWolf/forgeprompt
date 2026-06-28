@@ -95,7 +95,7 @@ const products = [
     price: "$9",
     category: "everyday",
     available: true,
-    gumroad: null,
+    gumroad: "https://mysterwolf.gumroad.com/l/everydayai",
   },
 ];
 
