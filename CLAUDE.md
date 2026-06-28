@@ -1,6 +1,6 @@
 # PromptSmith — Claude Context
 **Last updated:** June 2026
-**Version:** 1.3.0
+**Version:** 1.4.0
 
 ## What This Is
 Digital prompt playbook store for professionals. Sells role-specific playbooks, starter packs, and everyday AI guides. Built in React/Vite, deployed to GitHub Pages with custom domain www.promptsmith.store.
@@ -86,15 +86,14 @@ Products array at top of file. Each entry:
 | Product | Category | Platform | Price | Gumroad |
 |---------|----------|----------|-------|---------|
 | Your First 30 Prompts (Non-Technical) | starter | Any AI | $9 | mysterwolf.gumroad.com/l/nontechai ✓ |
-| Your First 30 Prompts + 25 More (Semi-Technical) | starter | Any AI | $14 | — pending |
 | Field PM Copilot Playbook | role | M365 | $29 | mysterwolf.gumroad.com/l/PMAIPlaybook ✓ |
-| Data Quality Copilot Playbook | role | M365 | $24 | forgeprompt.gumroad.com/l/data-quality-copilot (old URL) |
+| Data Quality Copilot Playbook | role | M365 | $24 | forgeprompt.gumroad.com/l/data-quality-copilot (old URL — framing under review) |
 | People Manager Prompt Pack | role | M365 | $29 | mysterwolf.gumroad.com/l/peoplepack ✓ |
 | Developer Prompt Pack | role | Claude · ChatGPT · Gemini | $19 | mysterwolf.gumroad.com/l/developai ✓ |
 | Analyst Prompt Pack | role | Any AI | $19 | mysterwolf.gumroad.com/l/analystai ✓ |
 | Social Worker's Gemini Playbook | role | Gemini | — | coming soon |
 | Admin Assistant Copilot Playbook | role | M365 | — | coming soon |
-| AI for Everyday Life | everyday | Any AI | $9 | — pending |
+| AI for Everyday Life | everyday | Any AI | $9 | mysterwolf.gumroad.com/l/everydayai ✓ |
 
 To add a product: add an entry to the `products` array. To add a platform: add a color entry to `PlatformBadge`'s `colors` object.
 
@@ -120,10 +119,9 @@ To add a product: add an entry to the `products` array. To add a platform: add a
 - **Confirm all design decisions before implementing** — do not infer layout, grouping, badge style, or copy from context
 
 ## Pending Work
-1. Wire Gumroad URLs: Your First 30 Prompts + 25 More, AI for Everyday Life
-2. Replace Data Quality Gumroad URL (still on forgeprompt.gumroad.com — needs mysterwolf.gumroad.com equivalent)
-3. Update contact/support email when domain email is set up
-4. Add email capture for "Notify me" on coming-soon products
+1. Data Quality product — framing under review; audience may broaden from CDM to Data Professionals; Gumroad URL also needs update from forgeprompt.gumroad.com to mysterwolf.gumroad.com
+2. Update contact/support email when domain email is set up
+3. Add email capture for "Notify me" on coming-soon products
 
 ## Deployment
 ```bash
