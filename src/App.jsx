@@ -11,7 +11,7 @@ const products = [
     price: "$9",
     category: "starter",
     available: true,
-    gumroad: null,
+    gumroad: "https://mysterwolf.gumroad.com/l/nontechai",
   },
   {
     id: "first-30-plus-25",
