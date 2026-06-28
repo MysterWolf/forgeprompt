@@ -75,7 +75,6 @@ const products = [
     available: false,
     gumroad: null,
   },
-  // Developer series
   {
     id: "developer-prompt-pack",
     title: "Developer Prompt Pack",
@@ -83,9 +82,19 @@ const products = [
     desc: "27 copy-paste prompts for developers. Reading and explaining code, debugging, technical communication, writing documentation, and evaluating tools and systems.",
     platform: "Claude · ChatGPT · Gemini",
     price: "$19",
-    category: "developer",
+    category: "role",
     available: true,
     gumroad: "https://mysterwolf.gumroad.com/l/developai",
+  },
+  {
+    id: "analyst-prompt-pack",
+    title: "Analyst Prompt Pack",
+    desc: "27 copy-paste prompts for data analysts. Making sense of data fast, writing narratives that make numbers mean something, explaining findings to non-data audiences, automating repetitive work, and collaborating with the technical people who build what you use.",
+    platform: "Any AI",
+    price: "$19",
+    category: "role",
+    available: true,
+    gumroad: "https://mysterwolf.gumroad.com/l/analystai",
   },
   // Everyday life
   {
@@ -342,7 +351,6 @@ export default function App() {
 
   const starters   = products.filter(p => p.category === "starter");
   const roleItems  = products.filter(p => p.category === "role");
-  const devItems   = products.filter(p => p.category === "developer");
   const everyday   = products.filter(p => p.category === "everyday");
 
   return (
@@ -549,12 +557,6 @@ export default function App() {
           <CatalogDivider label="Role-Specific Playbooks" />
           <div className="fp-products-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 20, marginBottom: 52 }}>
             {roleItems.map((p, i) => <ProductCard key={p.id} p={p} index={i} />)}
-          </div>
-
-          {/* Developer series */}
-          <CatalogDivider label="Developer Series" />
-          <div className="fp-products-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 20, marginBottom: 52 }}>
-            {devItems.map((p, i) => <ProductCard key={p.id} p={p} index={i} />)}
           </div>
 
           {/* Everyday life */}
