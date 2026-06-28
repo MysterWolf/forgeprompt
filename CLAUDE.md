@@ -1,6 +1,6 @@
 # PromptSmith — Claude Context
 **Last updated:** June 2026
-**Version:** 1.2.0
+**Version:** 1.3.0
 
 ## What This Is
 Digital prompt playbook store for professionals. Sells role-specific playbooks, starter packs, and everyday AI guides. Built in React/Vite, deployed to GitHub Pages with custom domain www.promptsmith.store.
@@ -48,7 +48,7 @@ To retheme: update only the `:root` block inside App.jsx. Do not hardcode colors
 ## Site Structure (src/App.jsx)
 1. **Nav** — Fixed, scrolled blur effect, logo mark + links + CTA button
 2. **Hero** — Grid bg pattern, headline, subhead, dual CTAs, trust bar
-3. **Products** — Three grouped sections (Start Here / Role-Specific / Beyond Work), platform badges, Gumroad links
+3. **Products** — Two grouped sections (Start Here / Role-Specific Playbooks / Beyond Work), platform badges, Gumroad links
 4. **How it works** — 3-step process (Download → Open tool → Paste and go)
 5. **About** — Two-column: narrative left, spec table right
 6. **CTA banner** — Navy background strip with Browse Playbooks button
@@ -69,7 +69,7 @@ Products array at top of file. Each entry:
 | `title` | string | Display name |
 | `subtitle` | string \| omit | Edition label shown in mono below title |
 | `desc` | string | One or two sentences |
-| `platform` | `"M365"` \| `"Gemini"` \| `"Any AI"` | Controls badge color |
+| `platform` | `"M365"` \| `"Gemini"` \| `"Any AI"` \| `"Claude · ChatGPT · Gemini"` | Controls badge color |
 | `price` | string | Data only — not shown on card; lives on Gumroad |
 | `category` | `"starter"` \| `"role"` \| `"everyday"` | Controls which section it appears in |
 | `available` | boolean | false = "Notify me" state |
@@ -85,11 +85,13 @@ Products array at top of file. Each entry:
 ### Current catalog
 | Product | Category | Platform | Price | Gumroad |
 |---------|----------|----------|-------|---------|
-| Your First 30 Prompts (Non-Technical) | starter | Any AI | $9 | — pending |
+| Your First 30 Prompts (Non-Technical) | starter | Any AI | $9 | mysterwolf.gumroad.com/l/nontechai ✓ |
 | Your First 30 Prompts + 25 More (Semi-Technical) | starter | Any AI | $14 | — pending |
-| Field PM Copilot Playbook | role | M365 | $29 | forgeprompt.gumroad.com/l/field-pm-copilot |
-| Data Quality Copilot Playbook | role | M365 | $24 | forgeprompt.gumroad.com/l/data-quality-copilot |
-| People Manager Prompt Pack | role | M365 | $29 | — pending |
+| Field PM Copilot Playbook | role | M365 | $29 | mysterwolf.gumroad.com/l/PMAIPlaybook ✓ |
+| Data Quality Copilot Playbook | role | M365 | $24 | forgeprompt.gumroad.com/l/data-quality-copilot (old URL) |
+| People Manager Prompt Pack | role | M365 | $29 | mysterwolf.gumroad.com/l/peoplepack ✓ |
+| Developer Prompt Pack | role | Claude · ChatGPT · Gemini | $19 | mysterwolf.gumroad.com/l/developai ✓ |
+| Analyst Prompt Pack | role | Any AI | $19 | mysterwolf.gumroad.com/l/analystai ✓ |
 | Social Worker's Gemini Playbook | role | Gemini | — | coming soon |
 | Admin Assistant Copilot Playbook | role | M365 | — | coming soon |
 | AI for Everyday Life | everyday | Any AI | $9 | — pending |
@@ -100,7 +102,7 @@ To add a product: add an entry to the `products` array. To add a platform: add a
 - Single-page, no router — all sections are scroll-anchored via `id`
 - All styles live inside App.jsx `<style>` block — do not move to index.css
 - No analytics, no backend, no CMS
-- Product sections grouped by `category` — rendered via filtered arrays (`starters`, `roleItems`, `everyday`) derived at the top of the App component
+- Product sections grouped by `category` — rendered via filtered arrays (`starters`, `roleItems`, `everyday`) at the top of the App component
 - Reveal animations use IntersectionObserver
 - Product cards link directly to Gumroad — no cart, no account required
 - Contact email: hello@promptsmith.store
@@ -115,10 +117,11 @@ To add a product: add an entry to the `products` array. To add a platform: add a
 - **No dark mode** — this is a light-first professional product site
 - **Keep the ProcessMind footer attribution** — PromptSmith is explicitly a ProcessMind product
 - **category field is required on every product** — drives section grouping
+- **Confirm all design decisions before implementing** — do not infer layout, grouping, badge style, or copy from context
 
 ## Pending Work
-1. Add real Gumroad URLs for: Your First 30 Prompts, Your First 30 Prompts + 25 More, People Manager Prompt Pack, AI for Everyday Life (update `gumroad: null` → real URL in products array)
-2. Update Gumroad account/URLs from forgeprompt.gumroad.com to promptsmith branding
+1. Wire Gumroad URLs: Your First 30 Prompts + 25 More, AI for Everyday Life
+2. Replace Data Quality Gumroad URL (still on forgeprompt.gumroad.com — needs mysterwolf.gumroad.com equivalent)
 3. Update contact/support email when domain email is set up
 4. Add email capture for "Notify me" on coming-soon products
 
@@ -130,4 +133,4 @@ npm run deploy
 Always run from ~/forgeprompt. The gh-pages branch is managed automatically.
 
 ## Claude Code Session Starter
-"I'm working on the PromptSmith product site at github.com/MysterWolf/forgeprompt. Pull the repo and read CLAUDE.md. This is a single-page React/Vite site deployed to GitHub Pages at www.promptsmith.store (HTTPS enforced). CSS variables only in :root inside App.jsx. All styles in the App.jsx style block — do not move to index.css. Products data in the products array at the top of App.jsx — each product needs id, title, desc, platform, price, category, available, gumroad fields. vite.config.js base is '/'. Custom domain is www.promptsmith.store set via public/CNAME — do not change to apex domain. No prices on product cards. Confirm before making any changes."
+"I'm working on the PromptSmith product site at github.com/MysterWolf/forgeprompt. Pull the repo and read CLAUDE.md. This is a single-page React/Vite site deployed to GitHub Pages at www.promptsmith.store (HTTPS enforced). CSS variables only in :root inside App.jsx. All styles in the App.jsx style block — do not move to index.css. Products data in the products array at the top of App.jsx — each product needs id, title, desc, platform, price, category, available, gumroad fields. vite.config.js base is '/'. Custom domain is www.promptsmith.store set via public/CNAME — do not change to apex domain. No prices on product cards. Confirm all design decisions before implementing."
