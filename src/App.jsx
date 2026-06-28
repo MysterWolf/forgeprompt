@@ -25,16 +25,6 @@ const products = [
     gumroad: "https://mysterwolf.gumroad.com/l/PMAIPlaybook",
   },
   {
-    id: "data-quality-copilot",
-    title: "Data Quality Copilot Playbook",
-    desc: "For Finance Operations and CDM professionals",
-    platform: "M365",
-    price: "$24",
-    category: "role",
-    available: true,
-    gumroad: "https://forgeprompt.gumroad.com/l/data-quality-copilot",
-  },
-  {
     id: "people-manager-pack",
     title: "People Manager Prompt Pack",
     desc: "For people managers and team leads using M365 Copilot",
