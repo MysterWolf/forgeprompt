@@ -75,6 +75,18 @@ const products = [
     available: false,
     gumroad: null,
   },
+  // Developer series
+  {
+    id: "developer-prompt-pack",
+    title: "Developer Prompt Pack",
+    subtitle: "Developer Series",
+    desc: "27 copy-paste prompts for developers. Reading and explaining code, debugging, technical communication, writing documentation, and evaluating tools and systems.",
+    platform: "Claude · ChatGPT · Gemini",
+    price: "$19",
+    category: "developer",
+    available: true,
+    gumroad: null,
+  },
   // Everyday life
   {
     id: "ai-everyday-life",
@@ -146,6 +158,7 @@ function PlatformBadge({ platform }) {
     M365:   { bg: "#E8EEF5", text: "#1B3A5C", border: "#B8C9DC" },
     Gemini: { bg: "#F0FDF4", text: "#15803D", border: "#BBF7D0" },
     "Any AI": { bg: "#F5F3FF", text: "#4C3D9E", border: "#DDD6FE" },
+    "Claude · ChatGPT · Gemini": { bg: "#F1F5F9", text: "#0F172A", border: "#CBD5E1" },
   };
   const c = colors[platform] || colors.M365;
   return (
@@ -327,9 +340,10 @@ export default function App() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const starters  = products.filter(p => p.category === "starter");
-  const roleItems = products.filter(p => p.category === "role");
-  const everyday  = products.filter(p => p.category === "everyday");
+  const starters   = products.filter(p => p.category === "starter");
+  const roleItems  = products.filter(p => p.category === "role");
+  const devItems   = products.filter(p => p.category === "developer");
+  const everyday   = products.filter(p => p.category === "everyday");
 
   return (
     <div style={{ background: "#FAFAFA", minHeight: "100vh", color: "#1A1A1A", fontFamily: "var(--fp-sans)" }}>
@@ -535,6 +549,12 @@ export default function App() {
           <CatalogDivider label="Role-Specific Playbooks" />
           <div className="fp-products-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 20, marginBottom: 52 }}>
             {roleItems.map((p, i) => <ProductCard key={p.id} p={p} index={i} />)}
+          </div>
+
+          {/* Developer series */}
+          <CatalogDivider label="Developer Series" />
+          <div className="fp-products-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 20, marginBottom: 52 }}>
+            {devItems.map((p, i) => <ProductCard key={p.id} p={p} index={i} />)}
           </div>
 
           {/* Everyday life */}
