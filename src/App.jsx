@@ -13,17 +13,6 @@ const products = [
     available: true,
     gumroad: "https://mysterwolf.gumroad.com/l/nontechai",
   },
-  {
-    id: "first-30-plus-25",
-    title: "Your First 30 Prompts + 25 More",
-    subtitle: "Semi-Technical Edition",
-    desc: "Everything in the Non-Technical Edition, plus 25 prompts for reading code, debugging logic, technical writing, documentation, and evaluating tools and systems.",
-    platform: "Any AI",
-    price: "$14",
-    category: "starter",
-    available: true,
-    gumroad: null,
-  },
   // Role-specific
   {
     id: "field-pm-copilot",
