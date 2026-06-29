@@ -1,6 +1,6 @@
 # PromptSmith — Claude Context
 **Last updated:** June 2026
-**Version:** 1.4.0
+**Version:** 1.5.0
 
 ## What This Is
 Digital prompt playbook store for professionals. Sells role-specific playbooks, starter packs, and everyday AI guides. Built in React/Vite, deployed to GitHub Pages with custom domain www.promptsmith.store.
@@ -87,7 +87,6 @@ Products array at top of file. Each entry:
 |---------|----------|----------|-------|---------|
 | Your First 30 Prompts (Non-Technical) | starter | Any AI | $9 | mysterwolf.gumroad.com/l/nontechai ✓ |
 | Field PM Copilot Playbook | role | M365 | $29 | mysterwolf.gumroad.com/l/PMAIPlaybook ✓ |
-| Data Quality Copilot Playbook | role | M365 | $24 | forgeprompt.gumroad.com/l/data-quality-copilot (old URL — framing under review) |
 | People Manager Prompt Pack | role | M365 | $29 | mysterwolf.gumroad.com/l/peoplepack ✓ |
 | Developer Prompt Pack | role | Claude · ChatGPT · Gemini | $19 | mysterwolf.gumroad.com/l/developai ✓ |
 | Analyst Prompt Pack | role | Any AI | $19 | mysterwolf.gumroad.com/l/analystai ✓ |
@@ -119,7 +118,7 @@ To add a product: add an entry to the `products` array. To add a platform: add a
 - **Confirm all design decisions before implementing** — do not infer layout, grouping, badge style, or copy from context
 
 ## Pending Work
-1. Data Quality product — framing under review; audience may broaden from CDM to Data Professionals; Gumroad URL also needs update from forgeprompt.gumroad.com to mysterwolf.gumroad.com
+1. Data Quality product — pulled from catalog; framing under review (CDM/Finance → Data Professionals); every M365 pack will get a platform-agnostic counterpart eventually
 2. Update contact/support email when domain email is set up
 3. Add email capture for "Notify me" on coming-soon products
 
